@@ -1,0 +1,584 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html>
+<head>
+
+<script type="text/javascript">
+
+</script>
+
+</head>
+<body>
+
+<script type="text/javascript">
+
+var n = 12;
+
+var blueai = false;
+var redai = false;
+var turnblue = true;
+var partical_team = new Array();
+var partical_x = new Array();
+var partical_y = new Array();
+var partical_horizontal = new Array();
+var partical_vertical = new Array();
+var partical_selected = new Array();
+
+var ipartical_x = new Array();
+var ipartical_y = new Array();
+var ipartical_horizontal = new Array();
+var ipartical_vertical = new Array();
+var ipartical_selected = new Array();
+
+for (y=0;y<n;y++){
+	for (x=0;x<n;x++){
+		var index = x + "x" + y;
+		partical_x[index] = x;
+		partical_y[index] = y;
+		if(x<n/2){
+			partical_horizontal[index] = "right";
+		}else{
+			partical_horizontal[index] = "left";
+		}
+		if(y<n/2){
+			partical_vertical[index] = "down";
+		}else{
+			partical_vertical[index] = "up";
+		}
+		partical_selected[index] = "no";
+	}
+}
+for (y=0;y<n;y++){
+	for (x=0;x<n;x++){
+		var index = x + "x" + y;
+		ipartical_x[index] = x;
+		ipartical_y[index] = y;
+		ipartical_horizontal[index] = "right";
+		ipartical_vertical[index] = "down";
+	}
+}
+partical_horizontal["2x1"] = "left";
+partical_horizontal["2x10"] = "left";
+partical_horizontal["9x1"] = "right";
+partical_horizontal["9x10"] = "right";
+partical_vertical["1x1"] = "up";
+partical_vertical["2x1"] = "up";
+partical_vertical["1x10"] = "down";
+partical_vertical["2x10"] = "down";
+partical_vertical["9x1"] = "up";
+partical_vertical["10x1"] = "up";
+partical_vertical["9x10"] = "down";
+partical_vertical["10x10"] = "down";
+
+print();
+
+//prints the board outside of selection.
+function print(){
+	document.body.innerHTML = "";
+	
+	for (y=0;y<n;y++){
+		for (x=0;x<n;x++){
+			var index = x + "x" + y;
+			partical_selected[index] = "no";
+			partical_team[index] = "black";
+		}
+	}
+	
+	bildcreatures();
+	
+	if (turnblue) {
+		if (blueai) {
+			ai();
+		}
+	}
+	
+	if (!turnblue) {
+		if (redai) {
+			ai();
+		}
+	}
+	
+	for (y=0;y<n;y++){
+		for (x=0;x<n;x++){
+			var index = x + "x" + y;
+			switch (partical_team[index]){
+			case "red":
+			if(partical_vertical[index] == "up"){
+				if(partical_horizontal[index] == "right"){
+					document.write("<img src = 'red/upright.bmp'  onclick = 'if(!turnblue){ select((x - 8 + width)/width-1,((y -8 + height)/height-1));printselect();}' />");
+				}else{
+					document.write("<img src = 'red/upleft.bmp'  onclick = 'if(!turnblue){ select((x - 8 + width)/width-1,((y -8 + height)/height-1));printselect();}' />");
+				}
+			}else{
+				if(partical_horizontal[index] == "right"){
+					document.write("<img src = 'red/downright.bmp'  onclick = 'if(!turnblue){ select((x - 8 + width)/width-1,((y -8 + height)/height-1));printselect();}' />");
+				}else{
+					document.write("<img src = 'red/downleft.bmp'  onclick = 'if(!turnblue){ select((x - 8 + width)/width-1,((y -8 + height)/height-1));printselect();}' />");
+				}
+			}
+			break;
+			case "blue":
+			if(partical_vertical[index] == "up"){
+				if(partical_horizontal[index] == "right"){
+					document.write("<img src = 'blue/upright.bmp'  onclick = 'if(turnblue){ select((x - 8 + width)/width-1,((y -8 + height)/height-1));printselect();}' />");
+				}else{
+					document.write("<img src = 'blue/upleft.bmp'  onclick = 'if(turnblue){ select((x - 8 + width)/width-1,((y -8 + height)/height-1));printselect();}' />");
+				}
+			}else{
+				if(partical_horizontal[index] == "right"){
+					document.write("<img src = 'blue/downright.bmp'  onclick = 'if(turnblue){ select((x - 8 + width)/width-1,((y -8 + height)/height-1));printselect();}' />");
+				}else{
+					document.write("<img src = 'blue/downleft.bmp'  onclick = 'if(turnblue){ select((x - 8 + width)/width-1,((y -8 + height)/height-1));printselect();}' />");
+				}
+			}
+			break;
+			case "purple":
+			if(partical_vertical[index] == "up"){
+				if(partical_horizontal[index] == "right"){
+					document.write("<img src = 'purple/upright.bmp'  onclick = 'select((x - 8 + width)/width-1,((y -8 + height)/height-1));printselect();' />");
+				}else{
+					document.write("<img src = 'purple/upleft.bmp'  onclick = 'select((x - 8 + width)/width-1,((y -8 + height)/height-1));printselect();' />");
+				}
+			}else{
+				if(partical_horizontal[index] == "right"){
+					document.write("<img src = 'purple/downright.bmp'  onclick = 'select((x - 8 + width)/width-1,((y -8 + height)/height-1));printselect();' />");
+				}else{
+					document.write("<img src = 'purple/downleft.bmp'  onclick = 'select((x - 8 + width)/width-1,((y -8 + height)/height-1));printselect();' />");
+				}
+			}
+			break;
+			default:
+			if(partical_vertical[index] == "up"){
+				if(partical_horizontal[index] == "right"){
+					document.write("<img src = 'black/upright.bmp' onClick = 'print();' />");
+				}else{
+					document.write("<img src = 'black/upleft.bmp' onClick = 'print();' />");
+				}
+			}else{
+				if(partical_horizontal[index] == "right"){
+					document.write("<img src = 'black/downright.bmp' onClick = 'print();' />");
+				}else{
+					document.write("<img src = 'black/downleft.bmp' onClick = 'print();' />");
+				}
+			}
+			}
+			
+		}
+		document.write("<br />");
+	}
+	if(turnblue){
+		document.write("blue");
+	}else{
+		document.write("red");
+	}
+	
+	document.write("<br />");
+	if (blueai) {
+		document.write("<img src = 'buttons/blueaion.bmp' onClick = 'blueai = false;print();' />");
+	}else{
+		document.write("<img src = 'buttons/blueaioff.bmp' onClick = 'blueai = true;print();' />");
+	}
+	document.write("     ");
+	if (redai) {
+		document.write("<img src = 'buttons/redaion.bmp' onClick = 'redai = false;print();' />");
+	}else{
+		document.write("<img src = 'buttons/redaioff.bmp' onClick = 'redai = true;print();' />");
+	}
+}
+
+//a function for onClick testing.
+function switchteam(x,y){
+	var index = x + "x" + y;
+	if (partical_team[index] == "undefined") {
+		alert("Not a valid index, type [x]x[y] when -1<x,y<" + (n-1));}
+	else {
+		if (partical_team[index] == "red") {
+		partical_team[index] = "blue";}
+		else {
+		partical_team[index] = "red";}
+	}
+}
+
+//selects a partical.
+function select(x,y){
+	var index = x + "x" + y;
+	if (partical_selected[index] == "yes") {
+		
+		for (y=0;y<n;y++){
+			for (x=0;x<n;x++){
+			var index = x + "x" + y;
+			partical_selected[index] = "no";
+			}
+		}
+	}else{
+		if (partical_selected[index] == "child"){
+		
+		if(turnblue){
+			turnblue = false;
+		}else{
+			turnblue = true;
+		}
+		
+		for (y=0;y<n;y++){
+			for (x=0;x<n;x++){
+			var indexselected = x + "x" + y;
+			if (partical_selected[indexselected] == "yes"){
+				var dx = partical_x[index] - partical_x[indexselected];
+				var dy = partical_y[index] - partical_y[indexselected];
+				
+				for (y=0;y<n;y++){
+					for (x=0;x<n;x++){
+					var indexchild = x + "x" + y;
+						if (partical_selected[indexchild] == "child" || partical_selected[indexchild] == "yes"){
+							var copyx = partical_x[indexchild] + dx;
+							var copyy = partical_y[indexchild] + dy;
+							var indexcopy = copyx + "x" + copyy;
+							ipartical_horizontal[indexcopy] = partical_horizontal[indexchild];
+							ipartical_vertical[indexcopy] = partical_vertical[indexchild];
+							ipartical_selected[indexcopy] = "child";
+						}
+					}
+				}
+				
+				for (b=0;b<n;b++){
+					for (a=0;a<n;a++){
+					var index = a + "x" + b;
+						if (ipartical_selected[index] == "child"){
+							partical_horizontal[index] = ipartical_horizontal[index];
+							partical_vertical[index] = ipartical_vertical[index];
+						}
+					}
+				}
+			}
+			
+			}
+		}
+		
+		}else{
+			partical_selected[index] = "yes";
+		}
+	}
+	
+	for (b=0;b<n;b++){
+		for (a=0;a<n;a++){
+			var index = a + "x" + b;
+			ipartical_selected[index] = "no";
+		}
+	}
+	
+	creature(x,y,"vertical");
+	creature(x,y,"horizontal");
+}
+
+//prints the board inside of selection.
+function printselect(){
+	document.body.innerHTML = "";
+	for (y=0;y<n;y++){
+		for (x=0;x<n;x++){
+			var index = x + "x" + y;
+			if (partical_selected[index] == "yes"){
+				if(partical_vertical[index] == "up"){
+					if(partical_horizontal[index] == "right"){
+						document.write("<img src = 'green/upright.bmp'  onclick = 'select((x - 8 + width)/width-1,((y -8 + height)/height-1));print();' />");
+					}else{
+						document.write("<img src = 'green/upleft.bmp'  onclick = 'select((x - 8 + width)/width-1,((y -8 + height)/height-1));print();' />");
+					}
+					}else{
+						if(partical_horizontal[index] == "right"){
+							document.write("<img src = 'green/downright.bmp'  onclick = 'select((x - 8 + width)/width-1,((y -8 + height)/height-1));print();' />");
+						}else{
+							document.write("<img src = 'green/downleft.bmp'  onclick = 'select((x + 41)/49-1,((y +41)/49-1));print();' />");
+						}
+					}
+			}else{
+			
+			if (partical_selected[index] == "child"){
+				if(partical_vertical[index] == "up"){
+					if(partical_horizontal[index] == "right"){
+						document.write("<img src = 'yellow/upright.bmp'  onclick = 'select((x - 8 + width)/width-1,((y -8 + height)/height-1));print();' />");
+					}else{
+						document.write("<img src = 'yellow/upleft.bmp'  onclick = 'select((x - 8 + width)/width-1,((y -8 + height)/height-1));print();' />");
+					}
+					}else{
+						if(partical_horizontal[index] == "right"){
+							document.write("<img src = 'yellow/downright.bmp'  onclick = 'select((x - 8 + width)/width-1,((y -8 + height)/height-1));print();' />");
+						}else{
+							document.write("<img src = 'yellow/downleft.bmp'  onclick = 'select((x - 8 + width)/width-1,((y - 8 + height)/height-1));print();' />");
+						}
+					}
+			}else{
+			
+			switch (partical_team[index]){
+			case "red":
+			if(partical_vertical[index] == "up"){
+				if(partical_horizontal[index] == "right"){
+					document.write("<img src = 'red/upright.bmp' />");
+				}else{
+					document.write("<img src = 'red/upleft.bmp' />");
+				}
+			}else{
+				if(partical_horizontal[index] == "right"){
+					document.write("<img src = 'red/downright.bmp' />");
+				}else{
+					document.write("<img src = 'red/downleft.bmp' />");
+				}
+			}
+			break;
+			case "blue":
+			if(partical_vertical[index] == "up"){
+				if(partical_horizontal[index] == "right"){
+					document.write("<img src = 'blue/upright.bmp' />");
+				}else{
+					document.write("<img src = 'blue/upleft.bmp' />");
+				}
+			}else{
+				if(partical_horizontal[index] == "right"){
+					document.write("<img src = 'blue/downright.bmp' />");
+				}else{
+					document.write("<img src = 'blue/downleft.bmp' />");
+				}
+			}
+			break;
+			case "purple":
+			if(partical_vertical[index] == "up"){
+				if(partical_horizontal[index] == "right"){
+					document.write("<img src = 'purple/upright.bmp' />");
+				}else{
+					document.write("<img src = 'purple/upleft.bmp' />");
+				}
+			}else{
+				if(partical_horizontal[index] == "right"){
+					document.write("<img src = 'purple/downright.bmp' />");
+				}else{
+					document.write("<img src = 'purple/downleft.bmp' />");
+				}
+			}
+			break;
+			default:
+			if(partical_vertical[index] == "up"){
+				if(partical_horizontal[index] == "right"){
+					document.write("<img src = 'black/upright.bmp' />");
+				}else{
+					document.write("<img src = 'black/upleft.bmp' />");
+				}
+			}else{
+				if(partical_horizontal[index] == "right"){
+					document.write("<img src = 'black/downright.bmp' />");
+				}else{
+					document.write("<img src = 'black/downleft.bmp' />");
+				}
+			}
+			}
+			}
+			}
+		}
+		document.write("<br />");
+	}
+	document.write("select");
+	
+	document.write("<br />");
+	if (blueai) {
+		document.write("<img src = 'buttons/blueaion.bmp' onClick = 'blueai = false;printselect();' />");
+	}else{
+		document.write("<img src = 'buttons/blueaioff.bmp' onClick = 'blueai = true;printselect();' />");
+	}
+	document.write("     ");
+	if (redai) {
+		document.write("<img src = 'buttons/redaion.bmp' onClick = 'redai = false;printselect();' />");
+	}else{
+		document.write("<img src = 'buttons/redaioff.bmp' onClick = 'redai = true;printselect();' />");
+	}
+}
+
+//sets selected of particals from the current creature to "child".
+function creature(x,y,vh){
+	var index = x + "x" + y;
+	var indexnext;
+	if (vh == "horizontal"){
+		if (partical_horizontal[index] == "right"){
+			x++;
+			indexnext = x + "x" + y;
+			if (partical_horizontal[indexnext] == "left"){
+				partical_selected[indexnext] = "child";
+				creature(x,y,"vertical");
+			}
+		}else{
+			x--;
+			indexnext = x + "x" + y;
+			if (partical_horizontal[indexnext] == "right"){
+				partical_selected[indexnext] = "child";
+				creature(x,y,"vertical");
+			}
+		}
+	}
+	else{
+		if (partical_vertical[index] == "down"){
+			y++;
+			indexnext = x + "x" + y;
+			if (partical_vertical[indexnext] == "up"){
+				partical_selected[indexnext] = "child";
+				creature(x,y,"horizontal");
+			}
+		}else{
+			y--;
+			indexnext = x + "x" + y;
+			if (partical_vertical[indexnext] == "down"){
+				partical_selected[indexnext] = "child";
+				creature(x,y,"horizontal");
+			}
+		}
+	}
+}
+//equlizes the team across the creature.
+function equlizeteam(x,y,vh){
+	var index = x + "x" + y;
+	var indexnext;
+	if (vh == "horizontal"){
+		if (partical_horizontal[index] == "right"){
+			x++;
+			indexnext = x + "x" + y;
+			if (partical_horizontal[indexnext] == "left"){
+				partical_team[indexnext] = partical_team[index];
+				equlizeteam(x,y,"vertical");
+			}
+		}else{
+			x--;
+			indexnext = x + "x" + y;
+			if (partical_horizontal[indexnext] == "right"){
+				partical_team[indexnext] = partical_team[index];
+				equlizeteam(x,y,"vertical");
+			}
+		}
+	}
+	else{
+		if (partical_vertical[index] == "down"){
+			y++;
+			indexnext = x + "x" + y;
+			if (partical_vertical[indexnext] == "up"){
+				partical_team[indexnext] = partical_team[index];
+				equlizeteam(x,y,"horizontal");
+			}
+		}else{
+			y--;
+			indexnext = x + "x" + y;
+			if (partical_vertical[indexnext] == "down"){
+				partical_team[indexnext] = partical_team[index];
+				equlizeteam(x,y,"horizontal");
+			}
+		}
+	}
+}
+//sets all the creatures on the board.
+
+function bildcreatures(){
+	for (y=0;y<n;y++){
+		for (x=0;x<n;x++){
+			var index = x + "x" + y;
+			partical_team[index] = "black";
+		}
+	}
+	
+	for (y=0;y<n;y++){
+		for (x=0;x<n;x++){
+			var index = x + "x" + y;
+			var indexb = x + "x" + (y-1);
+			var indexc = (x+1) + "x" + (y-1);
+			var indexd = (x+1) + "x" + y;
+			if (partical_horizontal[index] == "right" && partical_vertical[index] == "up" && partical_horizontal[indexb] == "right" && partical_vertical[indexb] == "down" &&partical_horizontal[indexc] == "left" && partical_vertical[indexc] == "down" && partical_horizontal[indexd] == "right" && partical_vertical[indexd] == "up"){
+				if(partical_team[index] == "red"){
+					partical_team[index] = "purple";
+				}else{
+					partical_team[index] = "blue";
+				}
+				equlizeteam(x,y,"vertical");
+				equlizeteam(x,y,"horizontal");
+			}
+			if (partical_horizontal[index] == "left" && partical_vertical[index] == "up" && partical_horizontal[indexb] == "right" && partical_vertical[indexb] == "down" &&partical_horizontal[indexc] == "left" && partical_vertical[indexc] == "down" && partical_horizontal[indexd] == "left" && partical_vertical[indexd] == "up"){
+				if(partical_team[index] == "red"){
+					partical_team[index] = "purple";
+				}else{
+					partical_team[index] = "blue";
+				}
+				equlizeteam(x,y,"vertical");
+				equlizeteam(x,y,"horizontal");
+			}
+			if (partical_horizontal[index] == "right" && partical_vertical[index] == "up" && partical_horizontal[indexb] == "right" && partical_vertical[indexb] == "down" &&partical_horizontal[indexc] == "right" && partical_vertical[indexc] == "down" && partical_horizontal[indexd] == "left" && partical_vertical[indexd] == "up"){
+				if(partical_team[index] == "blue"){
+					partical_team[index] = "purple";
+				}else{
+					partical_team[index] = "red";
+				}
+				equlizeteam(x,y,"vertical");
+				equlizeteam(x,y,"horizontal");
+			}
+			if (partical_horizontal[index] == "right" && partical_vertical[index] == "up" && partical_horizontal[indexb] == "left" && partical_vertical[indexb] == "down" &&partical_horizontal[indexc] == "left" && partical_vertical[indexc] == "down" && partical_horizontal[indexd] == "left" && partical_vertical[indexd] == "up"){
+				if(partical_team[index] == "blue"){
+					partical_team[index] = "purple";
+				}else{
+					partical_team[index] = "red";
+				}
+				equlizeteam(x,y,"vertical");
+				equlizeteam(x,y,"horizontal");
+			}
+		}
+	}
+}
+
+//computer is playing.
+function ai() {
+	var choices = new Array();
+	var team;
+	var choicenumber = 0;
+	if (turnblue) {
+		team = "blue";
+	}else{
+		team = "red";
+	}
+	for (y=0;y<n;y++) {
+		for (x=0;x<n;x++) {
+			var index = x + "x" + y;
+			if (partical_team[index] == team || partical_team[index] == "purple") {
+				choices[choicenumber] = index;
+				choicenumber++;
+			}
+		}
+	}
+	var choice = Math.floor(Math.random() * choices.length);
+	var selectedindex = choices[choice];
+	//var selectedindex = choices[0];
+	select(partical_x[selectedindex] , partical_y[selectedindex]);
+	choices = [];
+	choicenumber = 0;
+	
+	for (y=0;y<n;y++) {
+		for (x=0;x<n;x++) {
+			var index = x + "x" + y;
+			if (partical_selected[index] == "child") {
+				choices[choicenumber] = index;
+				choicenumber++;
+			}
+		}
+	}
+	
+	choice = Math.floor(Math.random() * choices.length);
+	selectedindex = choices[choice];
+	//selectedindex = choices[0];
+	select(partical_x[selectedindex] , partical_y[selectedindex]);
+	
+	for (y=0;y<n;y++){
+		for (x=0;x<n;x++){
+			var index = x + "x" + y;
+			partical_selected[index] = "no";
+			ipartical_selected[index] = "no";
+		}
+	}
+	bildcreatures();
+}
+
+</script>
+
+
+
+</body>
+</html>
