@@ -530,10 +530,6 @@ function endgame() {
 //prints the board outside of selection.
 function print(){
 	
-	document.body.innerHTML = "";
-	
-	document.write("<title>creatures</title>");
-	
 	
 	for (y=0;y<n;y++){
 		for (x=0;x<n;x++){
@@ -571,93 +567,28 @@ function print(){
 		endgame();
 	}else{
 	
-	for (y=0;y<n;y++){
-		for (x=0;x<n;x++){
-			var index = x + "x" + y;
-			switch (partical_team[index]){
-			case "red":
-			if(partical_vertical[index] == "up"){
-				if(partical_horizontal[index] == "right"){
-					document.write("<img id = 'part' src = 'red/upright.bmp' onclick = 'if(!turnblue){ select(name);printselect();}' />");
-				}else{
-					document.write("<img id = 'part' src = 'red/upleft.bmp' onclick = 'if(!turnblue){ select(name);printselect();}' />");
-				}
-			}else{
-				if(partical_horizontal[index] == "right"){
-					document.write("<img id = 'part' src = 'red/downright.bmp' onclick = 'if(!turnblue){ select(name);printselect();}' />");
-				}else{
-					document.write("<img id = 'part' src = 'red/downleft.bmp' onclick = 'if(!turnblue){ select(name);printselect();}' />");
-				}
-			}
-			break;
-			case "blue":
-			if(partical_vertical[index] == "up"){
-				if(partical_horizontal[index] == "right"){
-					document.write("<img id = 'part' src = 'blue/upright.bmp' onclick = 'if(turnblue){ select(name);printselect();}' />");
-				}else{
-					document.write("<img id = 'part' src = 'blue/upleft.bmp' onclick = 'if(turnblue){ select(name);printselect();}' />");
-				}
-			}else{
-				if(partical_horizontal[index] == "right"){
-					document.write("<img id = 'part' src = 'blue/downright.bmp' onclick = 'if(turnblue){ select(name);printselect();}' />");
-				}else{
-					document.write("<img id = 'part' src = 'blue/downleft.bmp' onclick = 'if(turnblue){ select(name);printselect();}' />");
-				}
-			}
-			break;
-			case "purple":
-			if(partical_vertical[index] == "up"){
-				if(partical_horizontal[index] == "right"){
-					document.write("<img id = 'part' src = 'purple/upright.bmp' onclick = 'select(name);printselect();' />");
-				}else{
-					document.write("<img id = 'part' src = 'purple/upleft.bmp' onclick = 'select(name);printselect();' />");
-				}
-			}else{
-				if(partical_horizontal[index] == "right"){
-					document.write("<img id = 'part' src = 'purple/downright.bmp' onclick = 'select(name);printselect();' />");
-				}else{
-					document.write("<img id = 'part' src = 'purple/downleft.bmp' onclick = 'select(name);printselect();' />");
-				}
-			}
-			break;
-			default:
-			if(partical_vertical[index] == "up"){
-				if(partical_horizontal[index] == "right"){
-					document.write("<img id = 'part' src = 'black/upright.bmp' onClick = 'print();' />");
-				}else{
-					document.write("<img id = 'part' src = 'black/upleft.bmp' onClick = 'print();' />");
-				}
-			}else{
-				if(partical_horizontal[index] == "right"){
-					document.write("<img id = 'part' src = 'black/downright.bmp' onClick = 'print();' />");
-				}else{
-					document.write("<img id = 'part' src = 'black/downleft.bmp' onClick = 'print();' />");
-				}
-			}
+		for (y=0;y<n;y++) {
+			for (x=0;x<n;x++) {
+				var index = x + "x" + y;
+				
+				partical_element[index].src = partical_team[index] + "//" partical_vertical[index] + partical_horizontal[index] + ".bmp";
 				
 			}
-			
-			document.getElementById("part").style.height = ngheight/n + "px";
-			document.getElementById("part").style.position = "absolute";
-			document.getElementById("part").style.left = ngheight/n * x + "px";
-			document.getElementById("part").style.top = ngheight/n * y + "px";
-			document.getElementById("part").name = index;
-			document.getElementById("part").id ="" + idtrash; idtrash++;
-			
 		}
-		document.write("<br />");
 		
+	
 	}
+
 	
 	
-	
+	/*
 	if(turnblue){
 		document.write("blue");
 	}else{
 		document.write("red");
 	}
 	
-	/*document.write("<br />");
+	document.write("<br />");
 	if (blueai) {
 		document.write("<img id = 'part' src = 'buttons/blueaion.bmp' onClick = 'blueai = false;print();' />");
 	}else{
@@ -670,7 +601,7 @@ function print(){
 		document.write("<img id = 'part' src = 'buttons/redaioff.bmp' onClick = 'redai = true;print();' />");
 	}*/
 	
-	
+	/*
 	out = document.createElement("IMG");
 	out.src = "buttons/menu.bmp";
 	out.onclick = function () {menu();};
@@ -679,7 +610,7 @@ function print(){
 	out.style.top = "200px";
 	out.style.left = ngwidth - 150 + "px";
 	document.body.appendChild(out);
-	}
+	}*/
 }
 
 //a function for onClick testing.
@@ -1093,6 +1024,8 @@ function ai() {
 
 function twoPlayers() {
 	
+	document.body.innerHTML = "";
+	
 	bluecreatures = 0;
 	redcreatures = 0;
 	
@@ -1117,6 +1050,7 @@ function twoPlayers() {
 			var index = x + "x" + y;
 			partical_x[index] = x;
 			partical_y[index] = y;
+			partical_team[index] = "black";
 			if(x<n/2){
 				partical_horizontal[index] = "right";
 			}else{
@@ -1151,6 +1085,22 @@ function twoPlayers() {
 	partical_vertical[(n/2 + 5) + "x1"] = "up";
 	partical_vertical[(n/2 + 4) + "x" + (n-2)] = "down";
 	partical_vertical[(n/2 + 5) + "x" + (n-2)] = "down";
+	
+	for (y=0;y<n;y++) {
+	
+		for (x=0;x<n;x++) {
+			var index = x + "x" + y;
+			partical_element[index] = document.createElement("IMG");
+			partical_element[index].style.position = "absolute";
+			partical_element[index].style.height = ngheight/n + "px";
+			partical_element[index].style.left = ngheight/n * x + "px";
+			partical_element[index].style.top = ngheight/n * y + "px";
+			partical_element[index].src = partical_team[index] + "//" + partical_vertical[index] + partical_horizontal[index] + ".bmp";
+			partical_element[index].name = index;
+			document.body.appendChild(partical_element[index]);
+		}
+	
+	}
 	
 	print();
 
@@ -1191,6 +1141,9 @@ function setLevel() {
 			var index = x + "x" + y;
 			partical_x[index] = x;
 			partical_y[index] = y;
+			
+			partical_team[index] = "black";
+			
 			if(x<n/2){
 				partical_horizontal[index] = "right";
 			}else{
@@ -1242,6 +1195,8 @@ function setLevel() {
 			}
 		}
 	}
+	
+	
 	
 	print();
 
