@@ -189,6 +189,25 @@ function lvlmenu() {
 			paragraph.appendChild(br);
 		break;
 		
+		case 3:
+			text = document.createTextNode("Level 4. \"Baby boom\".");
+			paragraph.appendChild(text);
+			br = document.createElement("BR");
+			paragraph.appendChild(br);
+			text = document.createTextNode("Create more creatures by");
+			paragraph.appendChild(text);
+			br = document.createElement("BR");
+			paragraph.appendChild(br);
+			text = document.createTextNode("moving your creature 3 spaces and");
+			paragraph.appendChild(text);
+			br = document.createElement("BR");
+			paragraph.appendChild(br);
+			text = document.createTextNode("by doing so leavling a whole core behind.");
+			paragraph.appendChild(text);
+			br = document.createElement("BR");
+			paragraph.appendChild(br);
+		break;
+		
 		default:
 			text = document.createTextNode("You have beaten all of the");
 			paragraph.appendChild(text);
@@ -264,7 +283,7 @@ function toutorial(page) {
 	paragraph.style.position = "absolute";
 	paragraph.style.left = "10px";
 	paragraph.style.top = "220px";
-	
+	if (languege == "english") {
 	switch (page) {
 		case 0:
 			text = document.createTextNode("Welcome to Creatures.");
@@ -319,7 +338,7 @@ function toutorial(page) {
 			paragraph.appendChild(text);
 			br = document.createElement("BR");
 			paragraph.appendChild(br);
-			text = document.createTextNode("the creature has there core in it.");
+			text = document.createTextNode("the creature has the player's core in it.");
 			paragraph.appendChild(text);
 			br = document.createElement("BR");
 			paragraph.appendChild(br);
@@ -338,11 +357,11 @@ function toutorial(page) {
 		break;
 		
 		case 3:
-			text = document.createTextNode("Creatures can be more then");
+			text = document.createTextNode("Creatures can be more than");
 			paragraph.appendChild(text);
 			br = document.createElement("BR");
 			paragraph.appendChild(br);
-			text = document.createTextNode("just the core. They can allso");
+			text = document.createTextNode("just the core. They can also");
 			paragraph.appendChild(text);
 			br = document.createElement("BR");
 			paragraph.appendChild(br);
@@ -357,11 +376,11 @@ function toutorial(page) {
 		break;
 		
 		case 4:
-			text = document.createTextNode("Heres a red core.");
+			text = document.createTextNode("Here's a red core.");
 			paragraph.appendChild(text);
 			br = document.createElement("BR");
 			paragraph.appendChild(br);
-			text = document.createTextNode("it makes creatures belong");
+			text = document.createTextNode("It makes creatures belong");
 			paragraph.appendChild(text);
 			br = document.createElement("BR");
 			paragraph.appendChild(br);
@@ -380,18 +399,18 @@ function toutorial(page) {
 			paragraph.appendChild(text);
 			br = document.createElement("BR");
 			paragraph.appendChild(br);
-			text = document.createTextNode("bothe players controll it.");
+			text = document.createTextNode("both players control it.");
 			paragraph.appendChild(text);
 			br = document.createElement("BR");
 			paragraph.appendChild(br);
 		break;
 		
 		case 6:
-			text = document.createTextNode("Creatures dont move by stepping");
+			text = document.createTextNode("Creatures don't move by stepping");
 			paragraph.appendChild(text);
 			br = document.createElement("BR");
 			paragraph.appendChild(br);
-			text = document.createTextNode("from one square to another. Instad");
+			text = document.createTextNode("from one square to another. Instead");
 			paragraph.appendChild(text);
 			br = document.createElement("BR");
 			paragraph.appendChild(br);
@@ -441,11 +460,11 @@ function toutorial(page) {
 			paragraph.appendChild(text);
 			br = document.createElement("BR");
 			paragraph.appendChild(br);
-			text = document.createTextNode("The parts that where a part of it");
+			text = document.createTextNode("The parts that were a part of it");
 			paragraph.appendChild(text);
 			br = document.createElement("BR");
 			paragraph.appendChild(br);
-			text = document.createTextNode("didnt disappier but are now");
+			text = document.createTextNode("didn't disappear but are now");
 			paragraph.appendChild(text);
 			br = document.createElement("BR");
 			paragraph.appendChild(br);
@@ -466,6 +485,14 @@ function toutorial(page) {
 			br = document.createElement("BR");
 			paragraph.appendChild(br);
 		break;
+	}
+	}else{
+		if (languege == "german") {
+			text = document.createTextNode(getexts[page]);
+			paragraph.appendChild(text);
+			br = document.createElement("BR");
+			paragraph.appendChild(br);
+		}
 	}
 	
 	document.body.appendChild(paragraph);
@@ -1278,6 +1305,11 @@ var atlvl = 0;
 levels.push("n=4,0x2=dr,1x2=dl,3x1=ul,2x1=ur");
 levels.push("n=4,1x1=dr,2x1=dl,3x1=dl,1x2=ur,2x2=ur,2x3=ul");
 levels.push("n=8,0x6=dr,1x6=dl,0x1=ur,1x1=ul,7x1=ul,6x1=ur,5x1=ul,4x1=ur,3x7=ul,3x6=dr,4x6=dl,4x7=ur,5x6=dr,6x5=dl,5x5=ur,5x4=dl,4x4=dr,3x4=dl,2x4=dr,2x5=ul,1x4=dl,1x3=ul,2x2=dl,2x3=ur,3x3=ul,4x3=ur,5x3=ul,5x2=dr,6x3=ur");
+levels.push("n=8,0x1=ur,1x1=ul,7x1=ul,6x1=ur,0x6=dr,1x6=dl,2x7=ul");
+
+var languege = "english";
+
+var getexts = new Array();
 
 var n = 14;
 
