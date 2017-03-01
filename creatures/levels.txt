@@ -1,3 +1,4 @@
 n=4,0x2=dr,1x2=dl,3x1=ul,2x1=ur
 n=4,1x1=dr,2x1=dl,3x1=dl,1x2=ur,2x2=ur,2x3=ul
 n=8,0x6=dr,1x6=dl,0x1=ur,1x1=ul,7x1=ul,6x1=ur,5x1=ul,4x1=ur,3x7=ul,3x6=dr,4x6=dl,4x7=ur,5x6=dr,6x5=dl,5x5=ur,5x4=dl,4x4=dr,3x4=dl,2x4=dr,2x5=ul,1x4=dl,1x3=ul,2x2=dl,2x3=ur,3x3=ul,4x3=ur,5x3=ul,5x2=dr,6x3=ur
+n=8,0x1=ur,1x1=ul,7x1=ul,6x1=ur,0x6=dr,1x6=dl,2x7=ul
