@@ -4,7 +4,8 @@
 <html>
 <head>
 
-<script type="text/javascript">
+<script type = "text/javascript" src = "ai.js"></script>
+<script type="text/javascript" >
 //main menu of the game.
 function menu() {
 	document.body.innerHTML = "";
@@ -114,7 +115,7 @@ function lvlmenu() {
 	
 	lvlmod = document.createElement("IMG");
 	lvlmod.src = "buttons/customlvl.bmp";
-	lvlmod.onclick = function () {position = input.value.split(","); setLevel();};
+	lvlmod.onclick = function () {customlvl = input.value; position = input.value.split(","); setLevel();};
 	lvlmod.style.position = "absolute";
 	lvlmod.style.left = out.style.left;
 	lvlmod.style.top = "150px";
@@ -122,7 +123,7 @@ function lvlmenu() {
 	
 	input = document.createElement("input");
 	input.type = "text";
-	input.value = "n=14,2x1=ul,2x12=dl,11x1=ur,11x12=dr,1x1=ur,1x12=dr,12x1=ul,12x12=dl";
+	input.value = customlvl;
 	input.style.position = "absolute";
 	input.style.left = lvlmod.style.left;
 	input.style.top = "270px";
@@ -706,6 +707,33 @@ function print(){
 	out.style.top = "200px";
 	out.style.left = ngwidth - 150 + "px";
 	document.body.appendChild(out);
+	
+	if (turnblue) {
+		title = document.createElement("IMG");
+		title.src = "buttons/blueturn.bmp";
+		title.style.height = "60px";
+		title.style.position = "absolute";
+		title.style.top = "100px";
+		title.style.left = ngwidth - 150 + "px";
+		document.body.appendChild(title);
+	}else{
+		title = document.createElement("IMG");
+		title.src = "buttons/redturn.bmp";
+		title.style.height = "60px";
+		title.style.position = "absolute";
+		title.style.top = "100px";
+		title.style.left = ngwidth - 150 + "px";
+		document.body.appendChild(title);
+	}
+	
+	lvlmod = document.createElement("IMG");
+	lvlmod.src = "buttons/lvlmod.bmp";
+	lvlmod.onclick = function () {lvlmenu(); };
+	lvlmod.style.position = "absolute";
+	lvlmod.style.height = "60";
+	lvlmod.style.top = "300px";
+	lvlmod.style.left = ngwidth - 150 + "px";
+	document.body.appendChild(lvlmod);
 	}
 }
 
@@ -909,7 +937,43 @@ function printselect(){
 		}
 		document.write("<br />");
 	}
-	document.write("select");
+	
+	out = document.createElement("IMG");
+	out.src = "buttons/menu.bmp";
+	out.onclick = function () {menu();};
+	out.style.height = "35px";
+	out.style.position = "absolute";
+	out.style.top = "200px";
+	out.style.left = ngwidth - 150 + "px";
+	document.body.appendChild(out);
+	
+	if (turnblue) {
+		title = document.createElement("IMG");
+		title.src = "buttons/blueturn.bmp";
+		title.style.height = "60px";
+		title.style.position = "absolute";
+		title.style.top = "100px";
+		title.style.left = ngwidth - 150 + "px";
+		document.body.appendChild(title);
+	}else{
+		title = document.createElement("IMG");
+		title.src = "buttons/redturn.bmp";
+		title.style.height = "60px";
+		title.style.position = "absolute";
+		title.style.top = "100px";
+		title.style.left = ngwidth - 150 + "px";
+		document.body.appendChild(title);
+	}
+	
+	lvlmod = document.createElement("IMG");
+	lvlmod.src = "buttons/lvlmod.bmp";
+	lvlmod.onclick = function () {lvlmenu(); };
+	lvlmod.style.position = "absolute";
+	lvlmod.style.height = "60";
+	lvlmod.style.top = "300px";
+	lvlmod.style.left = ngwidth - 150 + "px";
+	document.body.appendChild(lvlmod);
+	//document.write("select");
 	
 	/*document.write("<br />");
 	if (blueai) {
@@ -1062,6 +1126,7 @@ function bildcreatures(){
 		}
 	}
 }
+/*
 //computer is playing.
 function ai() {
 	var choices = new Array();
@@ -1117,7 +1182,7 @@ function ai() {
 		ai();
 	}
 }
-
+*/
 function twoPlayers() {
 	
 	bluecreatures = 0;
@@ -1302,6 +1367,7 @@ var levels = new Array();
 var islvlmod = false;
 var atlvl = 0;
 
+var customlvl = "n=14,2x1=ul,2x12=dl,11x1=ur,11x12=dr,1x1=ur,1x12=dr,12x1=ul,12x12=dl";
 levels.push("n=4,0x2=dr,1x2=dl,3x1=ul,2x1=ur");
 levels.push("n=4,1x1=dr,2x1=dl,3x1=dl,1x2=ur,2x2=ur,2x3=ul");
 levels.push("n=8,0x6=dr,1x6=dl,0x1=ur,1x1=ul,7x1=ul,6x1=ur,5x1=ul,4x1=ur,3x7=ul,3x6=dr,4x6=dl,4x7=ur,5x6=dr,6x5=dl,5x5=ur,5x4=dl,4x4=dr,3x4=dl,2x4=dr,2x5=ul,1x4=dl,1x3=ul,2x2=dl,2x3=ur,3x3=ul,4x3=ur,5x3=ul,5x2=dr,6x3=ur");
