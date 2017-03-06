@@ -104,7 +104,7 @@ function ai() {
 		
 		if (ran) {
 			choice = Math.floor(Math.random() * choices.length);
-			alert("random");
+			//alert("random");
 		}
 		selectedindex = choices[choice];
 		secondselect = selectedindex;
