@@ -1,4 +1,5 @@
-
+var aiblueparts = 0;
+var airedparts = 0;
 var aibluecreatures = 0;
 var airedcreatures = 0;
 
@@ -20,13 +21,15 @@ var aiipartical_selected = new Array();
 
 //computer is playing.
 function ai() {
-	var maxeval = -10000;
+	var maxeval = -99999999999;
 	
 	
 	var choices = new Array();
 	var team;
 	aibluecreatures = 0;
 	airedcreatures = 0;
+	aiblueparts = 0;
+	airedparts = 0;
 	var choicenumber = 0;
 	if (turnblue) {
 		team = "blue";
@@ -100,6 +103,8 @@ function ai() {
 			}
 			aibluecreatures = 0;
 			airedcreatures = 0;
+			aiblueparts = 0;
+			airedparts = 0;
 		}
 		
 		if (ran) {
@@ -129,9 +134,6 @@ function ai() {
 
 //move the aiparticals.
 function aimove(firstselect,secondselect) {
-	
-	var aibluecreatures = 0;
-	var airedcreatures = 0;
 	
 	for (y=0;y<n;y++) {
 		for (x=0;x<n;x++) {
@@ -166,7 +168,7 @@ function evalueatePosition() {
 		side = -1;
 	}
 		
-	return  (side * (aibluecreatures - airedcreatures));
+	return  (side * (4*(aibluecreatures - airedcreatures) + (aiblueparts - airedparts)));
 }
 
 //builds creatures for the ai.
@@ -239,10 +241,10 @@ function aiequlizeteam(x,y,vh){
 			if (aipartical_horizontal[indexnext] == "left"){
 				aipartical_team[indexnext] = aipartical_team[index];
 				if (aipartical_team[index] == "blue") {
-						aibluecreatures++;
+						aiblueparts++;
 				}
 				if (aipartical_team[index] == "red") {
-						airedcreatures++;
+						airedparts++;
 				}
 				aiequlizeteam(x,y,"vertical");
 			}
@@ -252,10 +254,10 @@ function aiequlizeteam(x,y,vh){
 			if (aipartical_horizontal[indexnext] == "right"){
 				aipartical_team[indexnext] = aipartical_team[index];
 				if (aipartical_team[index] == "blue") {
-						aibluecreatures++;
+						aiblueparts++;
 				}
 				if (aipartical_team[index] == "red") {
-						airedcreatures++;
+						airedparts++;
 				}
 				aiequlizeteam(x,y,"vertical");
 			}
@@ -268,10 +270,10 @@ function aiequlizeteam(x,y,vh){
 			if (aipartical_vertical[indexnext] == "up"){
 				aipartical_team[indexnext] = aipartical_team[index];
 				if (aipartical_team[index] == "blue") {
-						aibluecreatures++;
+						aiblueparts++;
 				}
 				if (aipartical_team[index] == "red") {
-						airedcreatures++;
+						airedparts++;
 				}
 				aiequlizeteam(x,y,"horizontal");
 			}
@@ -281,10 +283,10 @@ function aiequlizeteam(x,y,vh){
 			if (aipartical_vertical[indexnext] == "down"){
 				aipartical_team[indexnext] = aipartical_team[index];
 				if (aipartical_team[index] == "blue") {
-						aibluecreatures++;
+						aiblueparts++;
 				}
 				if (aipartical_team[index] == "red") {
-						airedcreatures++;
+						airedparts++;
 				}
 				aiequlizeteam(x,y,"horizontal");
 			}
